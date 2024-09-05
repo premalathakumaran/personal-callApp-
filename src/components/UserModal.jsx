@@ -1,103 +1,5 @@
 
 
-//  main code for that form  to display correct ----------without dropdown-------------------------------
-
-// import React from 'react';
-
-// const UserModal = ({ isOpen, onClose, person, onSave, formData, onChange, isEditing, onEdit, onCancel }) => {
-//   if (!isOpen) return null;
-
-//   return (
-//     <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center">
-//       <div className="relative bg-white p-16 rounded-lg shadow-lg max-w-4xl mx-auto w-full">
-//         <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 text-2xl">&times;</button>
-//         {isEditing ? (
-//           <>
-//             <h2 className="text-2xl font-bold mb-6">Edit Item</h2>
-//             <form onSubmit={onSave} className="space-y-6">
-//               <div>
-//                 <label className="block text-lg font-medium mb-2">GroupName:</label>
-//                 <input
-//                   type="text"
-//                   name="name"
-//                   value={formData.name}
-//                   onChange={onChange}
-//                   className="border border-gray-300 rounded-lg p-3 w-full"
-//                 />
-//               </div>
-//               <div>
-//                 <label className="block text-lg font-medium mb-2">Mobile Number:</label>
-//                 <input
-//                   type="text"
-//                   name="phone"
-//                   value={formData.phone}
-//                   onChange={onChange}
-//                   className="border border-gray-300 rounded-lg p-3 w-full"
-//                 />
-//               </div>
-//               <div>
-//                 <label className="block text-lg font-medium mb-2">Status:</label>
-//                 <select
-//                   name="status"
-//                   value={formData.status}
-//                   onChange={onChange}
-//                   className="border border-gray-300 rounded-lg p-3 w-full"
-//                 >
-//                   <option value="Active">Active</option>
-//                   <option value="Inactive">Inactive</option>
-//                 </select>
-//               </div>
-//               <div className="flex justify-end gap-4">
-//                 <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">Save</button>
-//                 <button
-//                   type="button"
-//                   onClick={onCancel}
-//                   className="bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600"
-//                 >
-//                   Cancel
-//                 </button>
-//               </div>
-//             </form>
-//           </>
-//         ) : (
-//           <>
-//             <h2 className="text-2xl font-bold mb-6">Person Details</h2>
-//             <div className="space-y-6">
-//               <div>
-//                 <label className="block text-lg font-medium mb-2">GroupName:</label>
-//                 <p className="border border-gray-300 rounded-lg p-3">{person?.name || 'N/A'}</p>
-//               </div>
-//               <div>
-//                 <label className="block text-lg font-medium mb-2">Mobile Number:</label>
-//                 <p className="border border-gray-300 rounded-lg p-3">{person?.phone || 'N/A'}</p>
-//               </div>
-//               <div>
-//                 <label className="block text-lg font-medium mb-2">Status:</label>
-//                 <p className={`border border-gray-300 rounded-lg p-3 ${person?.status === 'Active' ? 'text-green-500' : 'text-red-500'}`}>
-//                   {person?.status || 'N/A'}
-//                 </p>
-//               </div>
-//               <div className="flex justify-end">
-//                 <button
-//                   onClick={onClose}
-//                   className="bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600"
-//                 >
-//                   Close
-//                 </button>
-//               </div>
-//             </div>
-//           </>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default UserModal;
-
-
-
-
 //this code this ok code ----------------main code 1-------------------------
 
 // import React from 'react';
@@ -209,80 +111,7 @@
 
 
 
-// main code 2------------------------for gtting data(mobile number) in personal detail--------------------------------------
-// import React from 'react';
 
-// const UserModal = ({
-//   isOpen,
-//   onClose,
-//   person,
-//   onSave,
-//   formData,
-//   onChange,
-//   isEditing,
-//   onEdit,
-//   onCancel
-// }) => {
-//   if (!isOpen) return null;
-
-//   return (
-//     <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-//       <div className="bg-white p-6 rounded-lg shadow-lg">
-//         <h2 className="text-lg font-semibold mb-4">{isEditing ? 'Edit User' : 'User Details'}</h2>
-//         <form onSubmit={onSave}>
-//           <div className="mb-4">
-//             <label className="block text-gray-700">Name</label>
-//             <input
-//               type="text"
-//               name="name"
-//               value={formData.name}
-//               onChange={onChange}
-//               className="border border-gray-300 rounded-lg p-2 w-full"
-//               required
-//             />
-//           </div>
-//           <div className="mb-4">
-//             <label className="block text-gray-700">Phones</label>
-//             <input
-//               type="text"
-//               name="phones"
-//               value={formData.phones.join(', ')}
-//               onChange={e => onChange({
-//                 target: {
-//                   name: 'phones',
-//                   value: e.target.value.split(',').map(phone => phone.trim())
-//                 }
-//               })}
-//               className="border border-gray-300 rounded-lg p-2 w-full"
-//             />
-//           </div>
-//           <div className="mb-4">
-//             <label className="block text-gray-700">Status</label>
-//             <select
-//               name="status"
-//               value={formData.status}
-//               onChange={onChange}
-//               className="border border-gray-300 rounded-lg p-2 w-full"
-//             >
-//               <option value="Active">Active</option>
-//               <option value="Inactive">Inactive</option>
-//             </select>
-//           </div>
-//           <div className="flex justify-end space-x-4">
-//             <button type="button" onClick={onCancel} className="bg-gray-500 text-white px-4 py-2 rounded-lg">
-//               Cancel
-//             </button>
-//             <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-lg">
-//               Save
-//             </button>
-//           </div>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default UserModal;
 
 
 
@@ -405,11 +234,13 @@
 // export default UserModal;
 
 
+
+
+
+
 // if second code work delete this code ------------------------------------
-
-
 import React from 'react';
-import { FaEdit, FaTrash } from 'react-icons/fa'; // Importing icons for edit and delete
+import { FaEdit, FaTrash } from 'react-icons/fa'; 
 
 const UserModal = ({
   isOpen,
@@ -515,12 +346,12 @@ const UserModal = ({
                         <tr key={idx} className="border-t">
                           <td className="p-3">{phone}</td>
                           <td className="p-3 flex space-x-2">
-                            {/* <button
+                            <button
                               onClick={() => onEditPhone(phone)}
                               className="text-blue-500 hover:text-blue-600"
                             >
                               <FaEdit />
-                            </button> */}
+                            </button>
                             <button
                               onClick={() => onDeletePhone(phone)}
                               className="text-red-500 hover:text-red-600"
@@ -595,6 +426,5 @@ const UserModal = ({
 };
 
 export default UserModal;
-
 
 

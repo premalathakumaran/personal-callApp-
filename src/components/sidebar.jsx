@@ -44,9 +44,13 @@
 // export default Sidebar;
 
 
+
+
+
+// main code for every problem do not miss it ----// this code without page routing --------------------------------------------------------------------------------------------
+
 import React from 'react';
 import logo from "/src/assets/logoone.png"; 
-
 
 const Sidebar = ({ handleGroupClick }) => {
   return (
@@ -81,3 +85,48 @@ const Sidebar = ({ handleGroupClick }) => {
 };
 
 export default Sidebar;
+
+
+
+
+
+
+
+// this code with page routing --------------------------------------------------
+
+// import React from 'react';
+// import logo from "/src/assets/logoone.png"; 
+// import "@fortawesome/fontawesome-free/css/all.min.css";
+// import { Link } from "react-router-dom";
+
+// const Sidebar = () => {
+//   return (
+//     <div className="w-64 h-screen bg-[#134572] text-white flex flex-col" style={{ backgroundColor: "#134572" }}>
+//       <div className="flex justify-center mb-6">
+//         <img src={logo} alt="Annular Technology" className="w-32" />
+//       </div>
+//       <nav>
+//         <ul>
+//           <li className="mb-2 rounded hover:bg-blue-500 hover:shadow-lg py-2 flex items-center">
+//             <i className="fas fa-clock mr-2"></i>
+//             <Link to={"./table"} >
+//               Group 1
+//             </Link>
+//           </li>
+//           <li className="mb-2 rounded hover:bg-blue-500 hover:shadow-lg py-2 flex items-center">
+//             <i className="fas fa-clock mr-2"></i>
+//             <Link to={"./group"} >
+//               Group 2
+//             </Link>
+//           </li>
+//         </ul>
+//       </nav>
+//     </div>
+//   );
+// };
+
+// export default Sidebar;
+
+//className="block text-white hover:text-white-300"
+
+
