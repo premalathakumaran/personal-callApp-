@@ -239,6 +239,7 @@
 
 
 // if second code work delete this code ------------------------------------
+
 import React from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa'; 
 
@@ -367,42 +368,6 @@ const UserModal = ({
                   <p className="border border-gray-300 rounded-lg p-3">N/A</p>
                 )}
               </div>
-{/* <div className="max-h-60 overflow-y-auto">
-  <label className="block text-lg font-medium mb-2">Mobile Numbers:</label>
-  {person?.phones && person.phones.length > 0 ? (
-    <table className="w-full border border-gray-300 rounded-lg">
-      <thead>
-        <tr className="bg-gray-100">
-          <th className="p-3 text-left">Phone Number</th>
-          <th className="p-3 text-left">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {person.phones.map((phone, idx) => (
-          <tr key={idx} className="border-t">
-            <td className="p-3">{phone}</td>
-            <td className="p-3 flex space-x-2">
-              <button
-                onClick={() => onEditPhone(phone)}
-                className="text-blue-500 hover:text-blue-600"
-              >
-                <FaEdit />
-              </button>
-              <button
-                onClick={() => onDeletePhone(phone)}
-                className="text-red-500 hover:text-red-600"
-              >
-                <FaTrash />
-              </button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  ) : (
-    <p className="border border-gray-300 rounded-lg p-3">N/A</p>
-  )}
-</div> */}
               <div> 
                 <label className="block text-lg font-medium mb-2">Status:</label>
                 <p className={`border border-gray-300 rounded-lg p-3 ${person?.status === 'Active' ? 'text-green-500' : 'text-red-500'}`}>
@@ -426,5 +391,8 @@ const UserModal = ({
 };
 
 export default UserModal;
+
+
+
 
 

@@ -470,15 +470,13 @@ const Table = () => {
         isEditing={isEditing}
         onEdit={() => setIsEditing(true)}
         onCancel={() => setIsEditing(false)}
+        
       />
     </div>
   );
 };
 
 export default Table;
-
-
-
 
 
 
