@@ -70,7 +70,7 @@ const Sidebar = ({ handleGroupClick }) => {
         className="p-2 mb-2 text-white font-bold hover:text-black hover:bg-white rounded flex items-center"
 >
         <i className="fas fa-users mr-2"></i>
-        Group 1
+        Groups 
         </button>
         {/* <button
           onClick={() => handleGroupClick('group2')}
@@ -83,7 +83,6 @@ const Sidebar = ({ handleGroupClick }) => {
     </div>
   );
 };
-
 export default Sidebar;
 
 

@@ -45,7 +45,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleFormVisibility, selectIsFormVisible } from '../redux/groupSlice';
-import Sidebar from '../components/Sidebar';
+import Sidebar from '../components/sidebar';
 import Header from '../components/Header';
 import Table from '../components/Table';
 import GroupForm from '../components/GroupForm'; // Import GroupForm component
@@ -74,7 +74,7 @@ const Admin = () => {
           /> */}
           <button
            onClick={handleToggleForm}
-           className="text-white px-4 py-2 rounded-lg mt-4"
+           className="text-white px-4 py-2 rounded-lg mt-4 mr-7"
            style={{ backgroundColor: '#134572' }}
           >
             {isFormVisible ? 'Hide Form' : 'Create Group'}
@@ -107,7 +107,7 @@ const Admin = () => {
 
 export default Admin;
 
-
+//------------------------------------------------------------------------------------
 
 
 

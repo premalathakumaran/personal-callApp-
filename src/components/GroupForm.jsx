@@ -502,7 +502,8 @@ const GroupForm = () => {
             <button
               type="button"
               onClick={handleAddMobileNumber}
-              className="bg-blue-500 text-white p-2 rounded ml-2"
+              className=" text-white p-2 rounded ml-2"
+              style={{ backgroundColor: '#134572' }}
             >
               Add
             </button>
@@ -527,7 +528,7 @@ const GroupForm = () => {
                         <button
                           type="button"
                           onClick={() => handleDeleteMobileNumber(index)}
-                          className="text-red-500 hover:text-red-700"
+                          className=" text-red-500 hover:text-red-700"  
                         >
                           <FaTrash />
                         </button>
@@ -552,11 +553,14 @@ const GroupForm = () => {
           </select>
         </div>
         <div className="flex justify-end gap-4">
-          <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-lg">Save</button>
+          <button type="submit" className=" text-white py-2 px-4 rounded-lg"
+          style={{ backgroundColor: '#134572' }}>
+            Save</button>
           <button
             type="button"
             onClick={() => dispatch(toggleFormVisibility())}
-            className="bg-gray-500 text-white py-2 px-4 rounded-lg"
+            className=" text-white py-2 px-4 rounded-lg"
+            style={{ backgroundColor: '#134572' }}
           >
             Cancel
           </button>
