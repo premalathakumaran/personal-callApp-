@@ -402,20 +402,12 @@
 
 
 
-// UPDATED CODE 3 -------------------------------
+// UPDATED CODE 3 -------------------------------Final
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// Initial state
-const initialState = {
-  data: [],
-  selectedPerson: null,
-  status: 'idle', 
-  error: null,
-};
-
-// Thunk to fetch data
+// Async thunk to fetch table data
 export const fetchTableData = createAsyncThunk('table/fetchTableData', async () => {
   try {
     const response = await axios.get('https://8f2bdc70-dd7c-4be6-96a8-9a8a1ab4df82.mock.pstmn.io/getAllData');
@@ -434,19 +426,27 @@ export const fetchTableData = createAsyncThunk('table/fetchTableData', async () 
   }
 });
 
+// Initial state
+const initialState = {
+  data: [],
+  selectedPerson: null,
+  status: 'idle',
+  error: null,
+};
+
 // Slice
 const tableSlice = createSlice({
   name: 'table',
   initialState,
   reducers: {
-    updateTableItem: (state, action) => {
+    updateTableItem: (state, action) => {    // table edit items
       const { id, item } = action.payload;
       const index = state.data.findIndex(i => i.id === id);
       if (index !== -1) {
         state.data[index] = { ...state.data[index], ...item };
       }
     },
-    deleteTableItem: (state, action) => {
+    deleteTableItem: (state, action) => {       // table delete items 
       const id = action.payload;
       state.data = state.data.filter(item => item.id !== id);
     },
@@ -457,12 +457,12 @@ const tableSlice = createSlice({
       state.selectedPerson = null;
     },
     updatePhoneNumber: (state, action) => {
-      const { id, phone } = action.payload;
+      const { id, oldPhone, newPhone } = action.payload;
       const person = state.data.find(item => item.id === id);
       if (person) {
-        const phoneIndex = person.phones.indexOf(phone);
+        const phoneIndex = person.phones.findIndex(phone => phone === oldPhone);
         if (phoneIndex !== -1) {
-          person.phones[phoneIndex] = phone; // Update the phone number
+          person.phones[phoneIndex] = newPhone; // Update the phone number in person details
         }
       }
     },
@@ -470,19 +470,18 @@ const tableSlice = createSlice({
       const { id, phone } = action.payload;
       const person = state.data.find(item => item.id === id);
       if (person) {
-        person.phones = person.phones.filter(p => p !== phone); // Remove the phone number
+        person.phones = person.phones.filter(p => p !== phone); // Remove the phone number in person details
       }
     },
-    addPhoneNumber: (state, action) => { // Added reducer
+    addPhoneNumber: (state, action) => {
       const { id, phone } = action.payload;
       const person = state.data.find(item => item.id === id);
       if (person) {
         if (!person.phones.includes(phone)) {
-          person.phones.push(phone); // Add the phone number
+          person.phones.push(phone); // Add the phone number in person details
         }
       }
     },
-    
   },
   extraReducers: (builder) => {
     builder
@@ -500,7 +499,129 @@ const tableSlice = createSlice({
   },
 });
 
-export const { updateTableItem, deleteTableItem, selectPerson, clearSelectedPerson, updatePhoneNumber, deletePhoneNumber, addPhoneNumber } = tableSlice.actions;
+
+export const {
+  updateTableItem,
+  deleteTableItem,
+  selectPerson,
+  clearSelectedPerson,
+  updatePhoneNumber,
+  deletePhoneNumber,
+  addPhoneNumber,
+} = tableSlice.actions;
+
 
 export default tableSlice.reducer;
+
+
+
+
+
+
+// UPDATED CODE 3 (1)--------PROBLEM SOLVING MAIN CODE-----------------------Final
+
+// import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+// import axios from 'axios';
+
+// // Async thunk to fetch table data
+// export const fetchTableData = createAsyncThunk('table/fetchTableData', async () => {
+//   try {
+//     const response = await axios.get('https://8f2bdc70-dd7c-4be6-96a8-9a8a1ab4df82.mock.pstmn.io/getAllData');
+    
+//     const dataArray = response.data.data || [];
+
+//     return dataArray.map((item, index) => ({
+//       id: index, // Using index as id if there's no unique id in the data
+//       name: item.groupName || 'N/A',
+//       phones: item.mobileNumber || [],
+//       status: item.status ? 'Active' : 'Inactive',
+//     }));
+//   } catch (error) {
+//     console.error('Failed to fetch data:', error);
+//     throw error;
+//   }
+// });
+
+// // Initial state
+// const initialState = {
+//   data: [],
+//   selectedPerson: null,
+//   status: 'idle',
+//   error: null,
+// };
+
+// // Slice
+// const tableSlice = createSlice({
+//   name: 'table',
+//   initialState,
+//   reducers: {
+//     updateTableItem: (state, action) => {
+//       const { id, item } = action.payload;
+//       const index = state.data.findIndex(i => i.id === id);
+//       if (index !== -1) {
+//         state.data[index] = { ...state.data[index], ...item };
+//       }
+//     },
+//     deleteTableItem: (state, action) => {
+//       const id = action.payload;
+//       state.data = state.data.filter(item => item.id !== id);
+//     },
+//     selectPerson: (state, action) => {
+//       state.selectedPerson = action.payload;
+//     },
+//     clearSelectedPerson: (state) => {
+//       state.selectedPerson = null;
+//     },
+//     updatePhoneNumber: (state, action) => {
+//       const { id, oldPhone, newPhone } = action.payload;
+//       const person = state.data.find(item => item.id === id);
+//       if (person) {
+//         const phoneIndex = person.phones.findIndex(phone => phone === oldPhone);
+//         if (phoneIndex !== -1) {
+//           person.phones[phoneIndex] = newPhone; // Update the phone number
+//         }
+//       }
+//     },
+//     deletePhoneNumber: (state, action) => {
+//       const { id, phone } = action.payload;
+//       const person = state.data.find(item => item.id === id);
+//       if (person) {
+//         person.phones = person.phones.filter(p => p !== phone); // Remove the phone number
+//       }
+//     },
+//     addPhoneNumber: (state, action) => {
+//       const { id, phone } = action.payload;
+//       const person = state.data.find(item => item.id === id);
+//       if (person) {
+//         if (!person.phones.includes(phone)) {
+//           person.phones.push(phone); // Add the phone number
+//         }
+//       }
+//     },
+//   },
+//   extraReducers: (builder) => {
+//     builder
+//       .addCase(fetchTableData.pending, (state) => {
+//         state.status = 'loading';
+//       })
+//       .addCase(fetchTableData.fulfilled, (state, action) => {
+//         state.status = 'succeeded';
+//         state.data = action.payload;
+//       })
+//       .addCase(fetchTableData.rejected, (state, action) => {
+//         state.status = 'failed';
+//         state.error = action.error.message;
+//       });
+//   },
+// });
+
+// export const { updateTableItem, deleteTableItem, selectPerson, clearSelectedPerson, updatePhoneNumber, deletePhoneNumber, addPhoneNumber } = tableSlice.actions;
+
+// export default tableSlice.reducer;
+
+
+
+
+
+
 

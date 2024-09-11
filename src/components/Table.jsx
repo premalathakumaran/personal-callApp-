@@ -555,7 +555,7 @@
 
 
 
-// UPDATED CODE 3 ------------------
+// UPDATED CODE 3 ------------------Final
 
 
 import React, { useState, useEffect } from 'react';
@@ -576,17 +576,19 @@ const Table = () => {
   const error = useSelector((state) => state.table.error);
   const selectedPerson = useSelector((state) => state.table.selectedPerson);
 
-  const [isEditing, setIsEditing] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(null);
-  const [formData, setFormData] = useState({ name: '', phones: [], status: '' });
+  const [isEditing, setIsEditing] = useState(false);  // edit in the table
+  const [currentIndex, setCurrentIndex] = useState(null);   // edit in the table 
+  const [formData, setFormData] = useState({ name: '', phones: [], status: '' }); // edit in main table 
   const [searchQuery, setSearchQuery] = useState('');
 
+  
   useEffect(() => {
     if (status === 'idle') {
       dispatch(fetchTableData());
     }
   }, [status, dispatch]);
 
+  
   useEffect(() => {
     if (selectedPerson) {
       setFormData({
@@ -598,6 +600,7 @@ const Table = () => {
     }
   }, [selectedPerson]);
 
+  
   const handleEdit = (index) => {
     setCurrentIndex(index);
     setFormData({
@@ -608,18 +611,22 @@ const Table = () => {
     setIsEditing(true);
   };
 
+ 
   const handleDelete = (id) => {
     dispatch(deleteTableItem(id));
   };
 
+  
   const handlePersonClick = (person) => {
     dispatch(selectPerson(person));
   };
 
+  
   const handleCloseModal = () => {
     dispatch(clearSelectedPerson());
   };
 
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -628,42 +635,48 @@ const Table = () => {
     }));
   };
 
+ 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault(); 
+
     const updatedItem = {
       name: formData.name,
       phones: formData.phones,
       status: formData.status === 'Active',
     };
+
     if (isEditing) {
       dispatch(updateTableItem({ id: data[currentIndex].id, item: updatedItem }));
     }
-    setIsEditing(false);
-    handleCloseModal();
+    setIsEditing(false); 
   };
 
+  
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value.toLowerCase());
   };
 
+ 
   const handleEditPhone = (phone) => {
-    // Logic to edit a phone number can be implemented here
+    
   };
 
+  
   const handleDeletePhone = (phone) => {
-    // Remove the phone from the formData.phones array
     setFormData((prev) => ({
       ...prev,
       phones: prev.phones.filter((p) => p !== phone),
     }));
   };
 
+  
   const filteredData = data.filter((item) =>
     item.name.toLowerCase().includes(searchQuery) ||
     item.phones.some((phone) => typeof phone === 'string' && phone.toLowerCase().includes(searchQuery)) ||
     item.status.toLowerCase().includes(searchQuery)
   );
 
+ 
   if (status === 'loading') return <p>Loading...</p>;
   if (status === 'failed') return <p>Error: {error}</p>;
 
@@ -677,10 +690,10 @@ const Table = () => {
           onChange={handleSearchChange}
           className="border border-gray-500 rounded-lg px-4 py-0.5 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        {/* py-2 */}
+         {/* py-2 */}
       </div>
 
-      <table className="min-w-full divide-y divide-gray-200 ">
+      <table className="min-w-full divide-y divide-gray-200">
         <thead>
           <tr>
             <th className="p-3 text-left">GroupName</th>
@@ -693,7 +706,7 @@ const Table = () => {
           {filteredData.length > 0 ? (
             filteredData.map((item, index) => (
               <tr key={item.id}>
-                <td className="p-3 cursor-pointer text-blue-500 underline" onClick={() => handlePersonClick(item)}> 
+                <td className="p-3 cursor-pointer text-blue-500 underline" onClick={() => handlePersonClick(item)}>
                   {item.name || 'N/A'}
                 </td>
                 <td className="p-3">
@@ -737,7 +750,7 @@ const Table = () => {
           }
         }}
         person={selectedPerson}
-        onSave={handleSubmit}
+        onSave={(e) => handleSubmit(e)} // Correctly pass the form submission event
         formData={formData}
         onChange={handleChange}
         isEditing={isEditing}
@@ -751,3 +764,11 @@ const Table = () => {
 };
 
 export default Table;
+
+
+
+
+
+
+
+

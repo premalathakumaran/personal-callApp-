@@ -489,12 +489,14 @@
 
 
 
-// UPDATED CODE 3--------------
+// UPDATED CODE 3-------------- Final
+
 
 import React, { useState } from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
-import { updatePhoneNumber, deletePhoneNumber, addPhoneNumber } from '../redux/tableSlice'; 
+import { useDispatch, useSelector } from 'react-redux';
+import { updatePhoneNumber, deletePhoneNumber, addPhoneNumber } from '../redux/tableSlice';
+import { closeModal, updateFormData, savePerson, setEditing } from '../redux/modalSlice';
 
 const UserModal = ({
   isOpen,
@@ -509,21 +511,29 @@ const UserModal = ({
   const dispatch = useDispatch();
   const [newPhone, setNewPhone] = useState('');
   const [phoneToEdit, setPhoneToEdit] = useState('');
+  const [isEditingPhone, setIsEditingPhone] = useState(false);
 
   if (!isOpen) return null;
 
   const handleEditPhone = (phone) => {
     setPhoneToEdit(phone);
-    setNewPhone(phone); 
+    setNewPhone(phone);
+    setIsEditingPhone(true); // Show the edit input edit in person details
   };
 
-  
   const handleSaveEdit = () => {
     if (newPhone.trim()) {
       dispatch(updatePhoneNumber({ id: person.id, oldPhone: phoneToEdit, newPhone: newPhone.trim() }));
       setPhoneToEdit('');
       setNewPhone('');
+      setIsEditingPhone(false); // Hide the edit input
     }
+  };
+
+  const handleCancelEdit = () => {
+    setPhoneToEdit('');
+    setNewPhone('');
+    setIsEditingPhone(false); // Hide the edit input
   };
 
   const handleDeletePhone = (phone) => {
@@ -537,6 +547,11 @@ const UserModal = ({
     }
   };
 
+  const handleSave = () => {
+    dispatch(savePerson()); // Dispatch to save the updated person details
+    onSave(); // Additional callback if needed
+  };
+
   return (
     <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center">
       <div className="relative bg-white p-16 rounded-lg shadow-lg max-w-4xl mx-auto w-full">
@@ -544,7 +559,7 @@ const UserModal = ({
         {isEditing ? (
           <>
             <h2 className="text-2xl font-bold mb-6">Edit User</h2>
-            <form onSubmit={onSave} className="space-y-6">
+            <form onSubmit={(e) => { e.preventDefault(); handleSave(); }} className="space-y-6">
               <div>
                 <label className="block text-lg font-medium mb-2">Name:</label>
                 <input
@@ -591,7 +606,7 @@ const UserModal = ({
                 <button
                   type="button"
                   onClick={onCancel}
-                  className="  text-white py-2 px-4 rounded-lg hover:bg-gray-600"
+                  className="text-white py-2 px-4 rounded-lg hover:bg-gray-600"
                   style={{ backgroundColor: '#134572' }}
                 >
                   Cancel
@@ -651,24 +666,35 @@ const UserModal = ({
                     <p className="border border-gray-300 rounded-lg p-3">N/A</p>
                   )}
                 </div>
-                {/* New Phone Input */}
-                <div className="mt-4">
-                  <label className="block text-lg font-medium mb-2">Add New Phone Number:</label>
+                {/* Phone Input (Add/Edit) */}
+                <div className="mt-4 relative">
+                  <label className="block text-lg font-medium mb-2">
+                    {isEditingPhone ? 'Edit Phone Number:' : 'Add New Phone Number:'}
+                  </label>
                   <div className="flex space-x-2">
                     <input
                       type="text"
                       value={newPhone}
                       onChange={(e) => setNewPhone(e.target.value)}
                       className="border border-gray-300 rounded-lg p-3 w-full"
-                      placeholder="Enter new phone number"
+                      placeholder={isEditingPhone ? 'Enter phone number' : 'Enter new phone number'}
                     />
                     <button
-                      onClick={handleAddPhone}
-                      className=" text-white py-2 px-4 rounded-lg hover:bg-green-600"
+                      onClick={isEditingPhone ? handleSaveEdit : handleAddPhone}
+                      className={`text-white py-2 px-4 rounded-lg ${isEditingPhone ? 'hover:bg-blue-600' : 'hover:bg-green-600'}`}
                       style={{ backgroundColor: '#134572' }}
                     >
-                      Add
+                      {isEditingPhone ? 'Save' : 'Add'}
                     </button>
+                    {isEditingPhone && (
+                      <button
+                        onClick={handleCancelEdit}
+                        className="text-white py-2 px-4 rounded-lg hover:bg-gray-600"
+                        style={{ backgroundColor: '#134572' }}
+                      >
+                        Cancel
+                      </button>
+                    )}
                   </div>
                 </div>
                 <div>
@@ -677,24 +703,6 @@ const UserModal = ({
                     {person?.status || 'N/A'}
                   </p>
                 </div>
-                {phoneToEdit && (
-                  <div className="flex justify-end gap-4 mt-4">
-                    <button
-                      onClick={handleSaveEdit}
-                      className=" text-white py-2 px-4 rounded-lg hover:bg-blue-600"
-                      style={{ backgroundColor: '#134572' }}
-                    >
-                      Save Edit
-                    </button>
-                    <button
-                      onClick={() => setPhoneToEdit('')}
-                      className=" text-white py-2 px-4 rounded-lg hover:bg-gray-600"
-                      style={{ backgroundColor: '#134572' }}
-                    >
-                      Cancel Edit
-                    </button>
-                  </div>
-                )}
               </div>
             </div>
           </>
@@ -705,4 +713,6 @@ const UserModal = ({
 };
 
 export default UserModal;
+
+
 
